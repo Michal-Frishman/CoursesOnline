@@ -1,0 +1,8 @@
+<button type="button" (click)="openSignInDialog()">sign in</button>
+<button type="button" (click)="openSignUpDialog()">sign up</button>
+@if(isSignIn){
+    <app-sign-in [showForm]="true" (formClose)="isSignIn=false"></app-sign-in>
+}
+@if(isSignUp){
+    <app-sign-up [showForm]="true" (formClose)="isSignUp=false"></app-sign-up>
+}

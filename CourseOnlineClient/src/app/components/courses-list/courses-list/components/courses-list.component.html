@@ -1,0 +1,10 @@
+<b>Courses list:</b>
+<br />
+@for(course of listCourses ; track course.id) {
+<input type="checkbox">
+{{course.title}} {{course.teacherId}} {{course.description}}
+<button (click)="showDetails=true">See details</button>
+@if(showDetails){
+<app-course-details [courseId]="course.id"></app-course-details>}
+<br />
+}

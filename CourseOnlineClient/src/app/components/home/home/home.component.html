@@ -1,0 +1,6 @@
+<a routerLink="/courses" routerLinkActive="buttonactive" mat-menu-item> Courses </a>
+@if(this.authSevice.isTeacher){
+<a routerLink="/coursesManagement" routerLinkActive="buttonactive" mat-menu-item> Courses Management </a>
+}
+<a routerLink="/" routerLinkActive="buttonactive" mat-menu-item>Home</a><br/>
+<router-outlet></router-outlet>
