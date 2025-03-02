@@ -18,6 +18,6 @@ export class SignInAndUpComponent {
   }
   openSignUpDialog(){
     this.isSignUp=true
-    this.isSignIn=false
+    this.isSignIn=false    
   }
 }

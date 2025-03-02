@@ -1,10 +1,52 @@
 <b>Courses list:</b>
 <br />
-@for(course of listCourses ; track course.id) {
-<input type="checkbox">
-{{course.title}} {{course.teacherId}} {{course.description}}
-<button (click)="showDetails=true">See details</button>
-@if(showDetails){
-<app-course-details [courseId]="course.id"></app-course-details>}
-<br />
+@if(isTeacher){
+<button mat-stroked-button (click)="showAddForm=true">Add</button>}
+<mat-list>
+    @for(course of listCourses ; track course.id) {
+    <mat-list-item>📝 Course Name: {{course.title}} Teacher Id: {{course.teacherId}} Description:{{course.description}}
+        @if(isTeacher){
+        <button mat-stroked-button>Delete</button>
+        <button mat-stroked-button>Edit</button>
+        }
+        <button mat-stroked-button (click)="showDetails=true">See more</button>
+        <button mat-stroked-button>Join</button>
+        <button mat-stroked-button>Leave</button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    @if(showDetails){
+    <app-course-details [courseId]="course.id"></app-course-details>}
+    <br />
+    }
+
+</mat-list>
+
+
+
+@if(showAddForm){
+<form [formGroup]="courseForm" (ngSubmit)="addCourse()" class="course-form">
+    <mat-form-field appearance="outline">
+        <mat-label>title </mat-label>
+        <input matInput placeholder="title " formControlName="title">
+        @if(courseForm.get('title')?.invalid && courseForm.get('title')?.touched){
+
+        <mat-error>
+            Error: title is required
+        </mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>description</mat-label>
+        <textarea matInput placeholder="description" formControlName="description"></textarea>
+        @if(courseForm.get('description')?.invalid && courseForm.get('description')?.touched){
+
+        <mat-error>
+            Error: description is required
+        </mat-error>
+        }
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Send</button>
+</form>
 }

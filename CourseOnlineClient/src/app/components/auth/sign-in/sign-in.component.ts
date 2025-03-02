@@ -1,20 +1,32 @@
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { log } from 'console';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { partUser } from '../../../models/user';
 import { Router } from '@angular/router';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { SignUpComponent } from '../sign-up/sign-up.component';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [SignUpComponent, ReactiveFormsModule, MatSelectModule, ReactiveFormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatRadioModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.css'
 })
 export class SignInComponent implements OnInit {
-    router = inject(Router);
-  
+  showSignUp = false;
+  router = inject(Router);
+  hide = signal(true);
   @Output() formClose = new EventEmitter<void>();
   @Input() showForm = false;
   user: partUser = {};
@@ -26,27 +38,32 @@ export class SignInComponent implements OnInit {
     if (this.signInForm?.valid) {
       this.user = this.signInForm.value;
       if (this.user)
-        this.authService.signIn(this.user).subscribe(res => {     
-       this.authService.isAuth = true;
+        this.authService.signIn(this.user).subscribe(res => {
+          this.authService.isAuth = true;
           console.log("login successful");
           console.log(res.token);
-          sessionStorage.setItem('userToken',res.token);
-          this.authService.role = res.role;
-          this.router.navigate(['/']); 
+          console.log(res.userId);
+          console.log(res.role);
+
+          sessionStorage.setItem('userToken', res.token);
+          localStorage.setItem('userId',res.userId);
+          localStorage.setItem('role',res.role);
+          this.formClose.emit();
+
+          this.router.navigate(['/']);
         },
           error => {
             console.log("login failed");
+            this.signInForm.reset();
           },
 
         );
-      this.signInForm?.reset();
-      this.formClose.emit();
     }
   }
   ngOnInit(): void {
     this.signInForm = this.fb.group({
-      email: [''],
-      password: ['']
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
     });
   }
 }

@@ -1,6 +1,10 @@
-<a routerLink="/courses" routerLinkActive="buttonactive" mat-menu-item> Courses </a>
-@if(this.authSevice.isTeacher){
-<a routerLink="/coursesManagement" routerLinkActive="buttonactive" mat-menu-item> Courses Management </a>
-}
-<a routerLink="/" routerLinkActive="buttonactive" mat-menu-item>Home</a><br/>
+<!-- @if(this.authSevice.isTeacher){ -->
+<!-- } -->
+<mat-toolbar color="primary" class="nav-container" >
+    <nav class="nav-links">
+        <a mat-button routerLink="/about" routerLinkActive="active" >About</a>
+        <a mat-button routerLink="/courses" routerLinkActive="active">Course List</a>
+        <a mat-button routerLink="/coursesManagement" routerLinkActive="active"> Courses Management</a>
+    </nav>
+</mat-toolbar>
 <router-outlet></router-outlet>

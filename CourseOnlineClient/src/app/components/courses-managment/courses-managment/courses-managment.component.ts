@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 @Component({
   selector: 'app-courses-managment',
   standalone: true,
@@ -10,3 +9,4 @@ import { Component } from '@angular/core';
 export class CoursesManagmentComponent {
 
 }
+

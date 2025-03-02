@@ -1,4 +1,4 @@
-<form [formGroup]="signInForm" (submit)="signIn()">
+<!-- <form [formGroup]="signInForm" (submit)="signIn()">
     <div class="formGroup">
         <label for="email">email: </label>
         <input class="form-control" type="email" name="email" id="email" formControlName="email">
@@ -14,5 +14,40 @@
     <small>password is required</small>
     }
     <button [disabled]="this.signInForm.invalid" type="submit">submit</button>
-</form>
-  
+</form> -->
+@if(!showSignUp){
+<div class="form-container">
+
+    <form [formGroup]="signInForm" (submit)="signIn()">
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+            @if(this.signInForm.get('email')?.invalid && signInForm.get('email')?.touched)
+            {
+            <mat-error>
+                Email is required
+            </mat-error>}
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required>
+            @if(this.signInForm.get('password')?.invalid && signInForm.get('password')?.touched)
+            {
+            <mat-error>
+                Password is required
+            </mat-error>}
+        </mat-form-field>
+
+
+        <button mat-raised-button [disabled]="signInForm.invalid" type="submit">Submit</button>
+        <br />
+        Still don't have an acount?
+        <button mat-button type="button" (click)="showSignUp=true">Sign up</button>
+
+    </form>
+</div>}
+@else{
+    <app-sign-up [showForm]="true" (formClose)="showSignUp=false"></app-sign-up>
+
+}

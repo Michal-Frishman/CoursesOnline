@@ -9,8 +9,6 @@ import { partUser, role, User } from '../../../models/user';
 export class AuthService {
   public isAuth: boolean = false;
   private apiUrl = "http://localhost:3000/api/auth";
-  public role = "";
-  public isTeacher: boolean = this.role == 'teacher' ? true : false;
   constructor(private http: HttpClient) { }
   signIn(details: partUser) {
     return this.http.post<any>(`${this.apiUrl}/login`, details);
