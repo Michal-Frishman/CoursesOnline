@@ -6,16 +6,21 @@
     @for(course of listCourses ; track course.id) {
     <mat-list-item>📝 Course Name: {{course.title}} Teacher Id: {{course.teacherId}} Description:{{course.description}}
         @if(isTeacher){
-        <button mat-stroked-button>Delete</button>
+        <button mat-fab aria-label="Example icon button with a delete icon" (click)="deleteCourse(course.id)">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-stroked-button (click)="deleteCourse(course.id)">Delete</button>
         <button mat-stroked-button>Edit</button>
         }
-        <button mat-stroked-button (click)="showDetails=true">See more</button>
+        <a mat-button [routerLink]="'/courses/'+course.id" routerLinkActive="active">See lessons</a>
+
+
         <button mat-stroked-button>Join</button>
         <button mat-stroked-button>Leave</button>
     </mat-list-item>
     <mat-divider></mat-divider>
     @if(showDetails){
-    <app-course-details [courseId]="course.id"></app-course-details>}
+    <app-course-details></app-course-details>}
     <br />
     }
 

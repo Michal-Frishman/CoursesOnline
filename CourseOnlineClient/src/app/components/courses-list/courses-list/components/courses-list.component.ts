@@ -8,10 +8,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CourseDetailsComponent } from '../../../course-details/component/course-details.component';
+import { HttpClient } from '@angular/common/http';
+import {MatIconModule} from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-courses-list',
   standalone: true,
-  imports: [CourseDetailsComponent, CommonModule, MatListModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatExpansionModule],
+  imports: [RouterModule,MatIconModule,CourseDetailsComponent, CommonModule, MatListModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatExpansionModule],
   templateUrl: './courses-list.component.html',
   styleUrl: './courses-list.component.css'
 })
@@ -20,7 +24,7 @@ export class CoursesListComponent implements OnInit {
   listCourses: Course[] | any = [];
   showAddForm = false;
   courseForm!: FormGroup;
-  constructor(private coursesService: CoursesService, private fb: FormBuilder) {
+  constructor(private coursesService: CoursesService, private fb: FormBuilder,private http:HttpClient) {
     this.courseForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required]
@@ -49,5 +53,18 @@ export class CoursesListComponent implements OnInit {
       this.showAddForm = false
     }
   }
+  deleteCourse(id: number | undefined) {
+
+    this.http.delete(`http://localhost:3000/api/courses/${id}`, {
+
+    }).subscribe({
+      next: res => {
+        console.log('Success:', res)
+      },
+      error: err => console.error('Error:', err)
+    });
+
+  }
+
 }
 

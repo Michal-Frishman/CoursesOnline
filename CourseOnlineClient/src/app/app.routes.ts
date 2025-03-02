@@ -6,12 +6,14 @@ import { HomeComponent } from './components/home/home/home.component';
 import { teacherGuard } from './components/teacher-guard/teacher.guard';
 import { SignInComponent } from './components/auth/sign-in/sign-in.component';
 import { AboutComponent } from './components/about/about/about.component';
+import { CourseDetailsComponent } from './components/course-details/component/course-details.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent, canActivate: [authGuard],
         children: [
         { path: 'about', component: AboutComponent},
             { path: 'courses', component: CoursesListComponent},
+            { path: 'courses/:id', component: CourseDetailsComponent },
             { path: 'coursesManagement', component: CoursesManagmentComponent },
             // , canActivate: [teacherGuard]
         ]

@@ -1,1 +1,14 @@
-<p>course-details works!</p>
+<p>course-lessons</p>
+@if(isTeacher){
+    <button mat-stroked-button >Add</button>}
+<mat-list>
+    @for (lesson of lessons; track lesson.title) {
+      <mat-list-item> title{{ lesson.title }}   content{{ lesson.content }}</mat-list-item>
+      @if(isTeacher){
+        <button mat-fab aria-label="Example icon button with a delete icon" (click)="deleteLesson(lesson.id)">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-stroked-button>Edit</button>
+        }
+    }
+  </mat-list>
