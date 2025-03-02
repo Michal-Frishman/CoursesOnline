@@ -11,16 +11,16 @@ import { CourseDetailsComponent } from '../../../course-details/component/course
 @Component({
   selector: 'app-courses-list',
   standalone: true,
-  imports: [CourseDetailsComponent,CommonModule, MatListModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatExpansionModule],
+  imports: [CourseDetailsComponent, CommonModule, MatListModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatExpansionModule],
   templateUrl: './courses-list.component.html',
   styleUrl: './courses-list.component.css'
 })
 export class CoursesListComponent implements OnInit {
   isTeacher = (localStorage.getItem("role") == "teacher" || localStorage.getItem("role") == "admin") ? true : false;
-  listCourses: Course[] = [];
+  listCourses: Course[] | any = [];
   showAddForm = false;
   courseForm!: FormGroup;
-  constructor(private coursesService: CoursesService,private fb: FormBuilder) { 
+  constructor(private coursesService: CoursesService, private fb: FormBuilder) {
     this.courseForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required]
@@ -30,9 +30,8 @@ export class CoursesListComponent implements OnInit {
   ngOnInit() {
     console.log("getCourses course");
     this.coursesService.getCourses().subscribe(courses => {
-      if (this.listCourses.length > 0)
-        this.listCourses = courses;
-      console.log("courses" + this.listCourses.length);
+      this.listCourses = courses;
+      console.log("courses" + this.listCourses);
     }, error => {
       console.error("Error fetching courses:", error);
     });
@@ -40,18 +39,15 @@ export class CoursesListComponent implements OnInit {
   addCourse() {
     if (this.courseForm.valid) {
       this.coursesService.addCourse(this.courseForm.value).subscribe({
-
         next: res => {
           console.log('Success:', res),
-          // this.loadcourses();
-          this.courseForm.reset();
+            // this.loadcourses();
+            this.courseForm.reset();
         },
         error: err => console.error('Error:', err)
       });
       this.showAddForm = false
     }
   }
-
-
 }
 

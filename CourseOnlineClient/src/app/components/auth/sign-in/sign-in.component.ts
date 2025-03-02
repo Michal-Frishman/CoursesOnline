@@ -44,12 +44,10 @@ export class SignInComponent implements OnInit {
           console.log(res.token);
           console.log(res.userId);
           console.log(res.role);
-
           sessionStorage.setItem('userToken', res.token);
           localStorage.setItem('userId',res.userId);
           localStorage.setItem('role',res.role);
           this.formClose.emit();
-
           this.router.navigate(['/']);
         },
           error => {
