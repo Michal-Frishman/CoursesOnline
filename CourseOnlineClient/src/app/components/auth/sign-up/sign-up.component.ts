@@ -47,6 +47,7 @@ export class SignUpComponent implements OnInit {
         },
           error => {
             console.log("register failed");
+            alert("register failed");
             this.signUpForm?.reset();
           }
         );

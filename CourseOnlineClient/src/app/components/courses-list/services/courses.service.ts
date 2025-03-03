@@ -11,34 +11,26 @@ export class CoursesService {
   private apiUrl = "http://localhost:3000/api/courses";
 
   constructor(private http: HttpClient) { }
-  // token = sessionStorage.getItem("userToken");
 
-  // headers = new HttpHeaders({
-  //   'Authorization': `Bearer ${this.token}`
-  // });
-  // getCourses(){
-  //   console.log(this.token);
-  //   return this.http.get<Course[]>(this.apiUrl, { this.headers })
-  // }
   getCourses(): Observable<any> {
-    // const headers = new HttpHeaders({
-    //   'Authorization': `Bearer ${sessionStorage.getItem('userToken')}`
-    // });
-    // console.log("this"+this.headers);
-    // console.log("kkk"+sessionStorage.getItem('userToken'));
-
-
     return this.http.get<any>(this.apiUrl);
   }
-  // const headers = new HttpHeaders({
-  //   'Authorization': `Bearer ${sessionStorage.getItem('token')}`, 
-  // });
-  // return this.http.get<any>(this.apiUrl, { headers });
-  getlessons(courseId: number | undefined) {
-    return this.http.get<Lesson[]>(`http://localhost:3000/api/courses/${courseId}/lessons`)
+  updateCourse(course: Course):Observable<Course> 
+  {
+    return this.http.put<Course>(`${this.apiUrl}/${course.id}`, course);
+  } 
+  getCourseById(courseId: number) {
+    return this.http.get<Course>(`${this.apiUrl}/${courseId}`);
   }
 
-  addCourse(data: any) {
-    return this.http.post('http://localhost:3000/api/courses', data)
+  addCourse(course: Course) {
+    return this.http.post(this.apiUrl, course);
+  }
+  
+  deleteCourse(id: number){
+    console.log("delete2");
+    console.log(`${this.apiUrl}/${id}`);
+    
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

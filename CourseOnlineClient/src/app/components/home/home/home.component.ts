@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { AuthService } from '../../auth/services/auth.service';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -14,5 +13,4 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-constructor(public authSevice: AuthService){}
 }

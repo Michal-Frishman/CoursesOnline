@@ -9,22 +9,33 @@ import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CourseDetailsComponent } from '../../../course-details/component/course-details.component';
 import { HttpClient } from '@angular/common/http';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { JoinLeaveCoursesService } from '../../../join-leave-courses-service/join-leave-courses.service';
 
 @Component({
   selector: 'app-courses-list',
   standalone: true,
-  imports: [RouterModule,MatIconModule,CourseDetailsComponent, CommonModule, MatListModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatExpansionModule],
+  imports: [MatCardModule, MatToolbarModule, MatTabsModule, MatButtonModule, MatToolbar, MatMenuModule, RouterModule, MatIconModule, CourseDetailsComponent, CommonModule, MatListModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatExpansionModule],
   templateUrl: './courses-list.component.html',
   styleUrl: './courses-list.component.css'
 })
 export class CoursesListComponent implements OnInit {
   isTeacher = (localStorage.getItem("role") == "teacher" || localStorage.getItem("role") == "admin") ? true : false;
+  // isTeacher = true;  
+  userId=localStorage.getItem("userId");
   listCourses: Course[] | any = [];
   showAddForm = false;
+  showApdateForm = false;
   courseForm!: FormGroup;
-  constructor(private coursesService: CoursesService, private fb: FormBuilder,private http:HttpClient) {
+  joinedCourses: Course[]=[];
+  constructor(private joinLeave:JoinLeaveCoursesService,private coursesService: CoursesService, private fb: FormBuilder, private http: HttpClient) {
     this.courseForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required]
@@ -39,32 +50,32 @@ export class CoursesListComponent implements OnInit {
     }, error => {
       console.error("Error fetching courses:", error);
     });
+  // this.joinLeave.getCoursesById(parseInt(this.userId??"")).subscribe(courses => {
+  //     this.joinedCourses = courses;
+  //     console.log("courses" + this.listCourses);
+  //   }, error => {
+  //     console.error("Error fetching courses:", error);
+  //   });
   }
-  addCourse() {
-    if (this.courseForm.valid) {
-      this.coursesService.addCourse(this.courseForm.value).subscribe({
-        next: res => {
-          console.log('Success:', res),
-            // this.loadcourses();
-            this.courseForm.reset();
-        },
-        error: err => console.error('Error:', err)
-      });
-      this.showAddForm = false
-    }
-  }
-  deleteCourse(id: number | undefined) {
 
-    this.http.delete(`http://localhost:3000/api/courses/${id}`, {
-
-    }).subscribe({
-      next: res => {
-        console.log('Success:', res)
-      },
-      error: err => console.error('Error:', err)
+  deleteCourse(id: number) {
+    console.log("delete1");
+    this.coursesService.deleteCourse(id).subscribe(() => {
+      console.log('Course delete successfully');
     });
+  }
+  isJoin(course:Course){
+    return this.joinedCourses.find(c=>c===course);
+  }
+  join(course:Course){
+    this.joinLeave.joinCourse(parseInt(this.userId??""),course.id);
+    console.log("join",course);
+    
 
   }
-
+  leave(course:Course){
+    this.joinLeave.leaveCourse(parseInt(this.userId??""),course.id)
+  }
+  
 }
 

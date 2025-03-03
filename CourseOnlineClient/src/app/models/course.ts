@@ -6,6 +6,6 @@ export class Course {
        public title:string,
        public description:string,
        public teacherId:string,
-       public lessons:Lesson[]
+    //    public lessons:Lesson[]
     ) { }
 }

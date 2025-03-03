@@ -41,17 +41,19 @@ export class SignInComponent implements OnInit {
         this.authService.signIn(this.user).subscribe(res => {
           this.authService.isAuth = true;
           console.log("login successful");
-          console.log(res.token);
+          console.log("token"+res.token);
           console.log(res.userId);
-          console.log(res.role);
+          const role=JSON.parse(atob(res.token.split('.')[1]));
+          console.log("role"+role.role.value);
           sessionStorage.setItem('userToken', res.token);
           localStorage.setItem('userId',res.userId);
-          localStorage.setItem('role',res.role);
+          localStorage.setItem('role',JSON.parse(atob(res.token.split('.')[1])).role);
           this.formClose.emit();
           this.router.navigate(['/']);
         },
           error => {
             console.log("login failed");
+            alert("login failed");
             this.signInForm.reset();
           },
 
