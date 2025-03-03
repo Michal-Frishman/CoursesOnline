@@ -41,25 +41,20 @@ export class SignInComponent implements OnInit {
         this.authService.signIn(this.user).subscribe(res => {
           this.authService.isAuth = true;
           console.log("login successful");
-          console.log("token"+res.token);
-          console.log(res.userId);
-          const role=JSON.parse(atob(res.token.split('.')[1]));
-          console.log("role"+role.role.value);
           sessionStorage.setItem('userToken', res.token);
-          localStorage.setItem('userId',res.userId);
-          localStorage.setItem('role',JSON.parse(atob(res.token.split('.')[1])).role);
+          localStorage.setItem('userId', res.userId);
+          localStorage.setItem('role', res.role); 
           this.formClose.emit();
           this.router.navigate(['/']);
         },
-          error => {
-            console.log("login failed");
-            alert("login failed");
-            this.signInForm.reset();
-          },
-
-        );
+        error => {
+          console.log("login failed");
+          alert("login failed");
+          this.signInForm.reset();
+        });
     }
   }
+  
   ngOnInit(): void {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

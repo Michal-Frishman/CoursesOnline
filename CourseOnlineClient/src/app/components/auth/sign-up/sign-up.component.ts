@@ -35,11 +35,11 @@ export class SignUpComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService) { }
   signUp(): void {
     if (this.signUpForm?.valid) {
+      console.log(this.signUpForm?.value);
       this.user = this.signUpForm.value;
       if (this.user)
         this.authService.signUp(this.user).subscribe(res => {         
-          // sessionStorage.setItem('userToken', res.token.toString());
-          // this.authService.role = res.role;
+          localStorage.setItem("role",this.signUpForm?.value.role );;
           this.authService.isAuth = true;
           console.log("register successful");      
           this.router.navigate(['/']); 

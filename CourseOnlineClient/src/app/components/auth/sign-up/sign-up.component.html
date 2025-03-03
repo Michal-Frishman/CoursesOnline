@@ -84,14 +84,14 @@
     </mat-form-field>
 
     <div>
-        <mat-form-field>
+        <mat-form-field appearance="fill">
             <mat-label>Role</mat-label>
-            <mat-select>
-              <mat-option value="admin">Admin</mat-option>
+            <mat-select formControlName="role" required>
+                <mat-option value="admin">Admin</mat-option>
               <mat-option value="student">Student</mat-option>
               <mat-option value="teacher">Teacher</mat-option>
             </mat-select>
-          </mat-form-field>
+        </mat-form-field>
         @if(this.signUpForm.get('role')?.invalid && signUpForm.get('role')?.touched){
 
         <mat-error>
