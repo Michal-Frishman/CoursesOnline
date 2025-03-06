@@ -1,23 +1,7 @@
-<!-- <form [formGroup]="signInForm" (submit)="signIn()">
-    <div class="formGroup">
-        <label for="email">email: </label>
-        <input class="form-control" type="email" name="email" id="email" formControlName="email">
-    </div>
-    @if(this.signInForm.get('email')?.invalid && signInForm.get('email')?.touched){
-    <small>email is required</small>
-    }
-    <div class="formGroup">
-        <label for="password">password: </label>
-        <input class="form-control" type="text" name="password" id="password" formControlName="password">
-    </div>
-    @if(this.signInForm.get('password')?.invalid && signInForm.get('password')?.touched){
-    <small>password is required</small>
-    }
-    <button [disabled]="this.signInForm.invalid" type="submit">submit</button>
-</form> -->
 @if(!showSignUp){
 <div class="form-container">
     <form [formGroup]="signInForm" (submit)="signIn()">
+        
         <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="email" required>
@@ -38,8 +22,7 @@
             </mat-error>}
         </mat-form-field>
 
-
-        <button mat-raised-button [disabled]="signInForm.invalid" type="submit">Submit</button>
+        <button mat-raised-button [disabled]="signInForm.invalid" type="submit">Sign in</button>
         <br />
         Still don't have an acount?
         <button mat-button type="button" (click)="showSignUp=true">Sign up</button>
@@ -47,6 +30,6 @@
     </form>
 </div>}
 @else{
-    <app-sign-up [showForm]="true" (formClose)="showSignUp=false"></app-sign-up>
+    <app-sign-up></app-sign-up>
 
 }

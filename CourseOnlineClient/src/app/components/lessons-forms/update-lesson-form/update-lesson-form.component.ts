@@ -6,8 +6,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LessonsService } from '../../lessons-service/lessons.service';
-import { Lesson } from '../../../models/Lesson';
+import { LessonsService } from '../../../services/lessons-service/lessons.service';
+import { Lesson } from '../../../models/lesson';
 @Component({
   selector: 'app-update-lesson-form',
   standalone: true,
@@ -31,7 +31,6 @@ export class UpdateLessonFormComponent implements OnInit {
     if (this.lessonForm.valid) {
         this.lessonsService.updateLesson(this.courseId, this.lessonId, this.lessonForm.value).subscribe({
             next: res => {
-                console.log('Success:', res);
                 this.routerNavigate.navigate([`/courses/${this.courseId}/lessons`]);
             },
             error: err => console.error('Error:', err)

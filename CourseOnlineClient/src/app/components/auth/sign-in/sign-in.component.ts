@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output, signal } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../../services/auth-service/auth.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { partUser } from '../../../models/user';
 import { Router } from '@angular/router';
@@ -27,32 +27,29 @@ export class SignInComponent implements OnInit {
   showSignUp = false;
   router = inject(Router);
   hide = signal(true);
-  @Output() formClose = new EventEmitter<void>();
-  @Input() showForm = false;
   user: partUser = {};
   signInForm!: FormGroup;
-  email: string = '';
-  password: string = '';
+
   constructor(private fb: FormBuilder, private authService: AuthService) { }
+
   signIn(): void {
     if (this.signInForm?.valid) {
       this.user = this.signInForm.value;
-      if (this.user)
-        this.authService.signIn(this.user).subscribe(res => {
-          this.authService.isAuth = true;
-          console.log("login successful");
-
-          sessionStorage.setItem('token', res.token);
-          sessionStorage.setItem('userId', res.userId);
-          sessionStorage.setItem('role', res.role);
-          this.formClose.emit();
-          this.router.navigate(['/courses']);
-        },
-          error => {
-            console.log("login failed");
+      if (this.user) {
+        this.authService.signIn(this.user).subscribe({
+          next: (res) => {
+            this.authService.isAuth = true;
+            sessionStorage.setItem('token', res.token);
+            sessionStorage.setItem('userId', res.userId);
+            sessionStorage.setItem('role', res.role);
+            this.router.navigate(['/courses']);
+          },
+          error: (error) => {
             alert("login failed");
             this.signInForm.reset();
-          });
+          }
+        });
+      }
     }
   }
 
