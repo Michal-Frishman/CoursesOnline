@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Lesson } from '../../models/lesson';
+import { Lesson } from '../../models/Lesson';
 import { BehaviorSubject, Observable, of, tap } from 'rxjs';
 import { Course } from '../../models/course';
 

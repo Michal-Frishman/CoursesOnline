@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LessonsService } from '../../../services/lessons-service/lessons.service';
-import { Lesson } from '../../../models/lesson';
+import { Lesson } from '../../../models/Lesson';
 @Component({
   selector: 'app-update-lesson-form',
   standalone: true,
