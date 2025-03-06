@@ -39,10 +39,10 @@ export class SignUpComponent implements OnInit {
       this.user = this.signUpForm.value;
       if (this.user)
         this.authService.signUp(this.user).subscribe(res => {         
-          localStorage.setItem("role",this.signUpForm?.value.role );;
+          sessionStorage.setItem("role",this.signUpForm?.value.role );;
           this.authService.isAuth = true;
           console.log("register successful");      
-          this.router.navigate(['/']); 
+          this.router.navigate(['/courses']); 
           this.formClose.emit();
         },
           error => {

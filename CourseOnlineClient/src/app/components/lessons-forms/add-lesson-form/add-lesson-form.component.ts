@@ -16,21 +16,21 @@ import { LessonsService } from '../../lessons-service/lessons.service';
 })
 export class AddLessonFormComponent implements OnInit {
   lessonForm!: FormGroup;
-  routerNavigate = inject(Router);
+  courseId = 0;
 
-  courseId = 0
-  constructor(private route: ActivatedRoute, private coursesService: LessonsService, private fb: FormBuilder) {
+  constructor(private route: ActivatedRoute, private coursesService: LessonsService, private fb: FormBuilder, private router: Router) {
     this.lessonForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required]
     });
   }
+
   addLesson() {
     if (this.lessonForm.valid) {
       this.coursesService.addLesson(this.courseId, this.lessonForm.value).subscribe({
         next: res => {
           console.log('Success:', res);
-          this.routerNavigate.navigate([`/courses/${this.courseId}/lessons`]);
+          this.router.navigate([`/courses/${this.courseId}/lessons`]);
         },
         error: err => console.error('Error:', err)
       });
@@ -38,8 +38,33 @@ export class AddLessonFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.courseId = parseInt(this.route.snapshot.paramMap.get('id')?.toString() ?? '');
+    this.courseId = parseInt(this.route.snapshot.paramMap.get('id') ?? '0', 10); // Added radix for parseInt
   }
+  // lessonForm!: FormGroup;
+  // routerNavigate = inject(Router);
+
+  // courseId = 0
+  // constructor(private route: ActivatedRoute, private coursesService: LessonsService, private fb: FormBuilder) {
+  //   this.lessonForm = this.fb.group({
+  //     title: ['', Validators.required],
+  //     content: ['', Validators.required]
+  //   });
+  // }
+  // addLesson() {
+  //   if (this.lessonForm.valid) {
+  //     this.coursesService.addLesson(this.courseId, this.lessonForm.value).subscribe({
+  //       next: res => {
+  //         console.log('Success:', res);
+  //         this.routerNavigate.navigate([`/courses/${this.courseId}/lessons`]);
+  //       },
+  //       error: err => console.error('Error:', err)
+  //     });
+  //   }
+  // }
+
+  // ngOnInit(): void {
+  //   this.courseId = parseInt(this.route.snapshot.paramMap.get('id')?.toString() ?? '');
+  // }
 
 
 }

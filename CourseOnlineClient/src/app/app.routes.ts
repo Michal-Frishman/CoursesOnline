@@ -1,9 +1,7 @@
 import { Routes } from '@angular/router';
-import { CoursesManagmentComponent } from './components/courses-managment/courses-managment/courses-managment.component';
 import { CoursesListComponent } from './components/courses-list/courses-list/components/courses-list.component';
 import { authGuard } from './components/auth/guard/auth.guard';
 import { HomeComponent } from './components/home/home/home.component';
-import { teacherGuard } from './components/teacher-guard/teacher.guard';
 import { SignInComponent } from './components/auth/sign-in/sign-in.component';
 import { AboutComponent } from './components/about/about/about.component';
 import { CourseDetailsComponent } from './components/course-details/component/course-details.component';
@@ -22,7 +20,7 @@ export const routes: Routes = [
             { path: 'courses/add', component: AddCourseFormComponent },
             { path: 'courses/:id/update', component: UpdateCourseFormComponent },
             { path: 'courses/:id/lessons/:lessonId/update', component: UpdateLessonFormComponent },
-            { path: 'courses/:id/lessons/add', component: AddLessonFormComponent },
+            { path: 'courses/:id/lessons/add', component: AddLessonFormComponent }
         ]
     },
     { path: 'login', component: SignInComponent },

@@ -42,10 +42,10 @@ export class SignInComponent implements OnInit {
           this.authService.isAuth = true;
           console.log("login successful");
           sessionStorage.setItem('userToken', res.token);
-          localStorage.setItem('userId', res.userId);
-          localStorage.setItem('role', res.role); 
+          sessionStorage.setItem('userId', res.userId);
+          sessionStorage.setItem('role', res.role); 
           this.formClose.emit();
-          this.router.navigate(['/']);
+          this.router.navigate(['/courses']);
         },
         error => {
           console.log("login failed");

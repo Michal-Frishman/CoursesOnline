@@ -27,17 +27,18 @@ export class UpdateLessonFormComponent implements OnInit {
       content: ['', Validators.required]
     });
   }
-  addLesson() {
+  updateLesson() {
     if (this.lessonForm.valid) {
-      this.lessonsService.addLesson(this.courseId, this.lessonForm.value).subscribe({
-        next: res => {
-          console.log('Success:', res);
-          this.routerNavigate.navigate([`/courses/${this.courseId}/lessons`]);
-        },
-        error: err => console.error('Error:', err)
-      });
+        this.lessonsService.updateLesson(this.courseId, this.lessonId, this.lessonForm.value).subscribe({
+            next: res => {
+                console.log('Success:', res);
+                this.routerNavigate.navigate([`/courses/${this.courseId}/lessons`]);
+            },
+            error: err => console.error('Error:', err)
+        });
     }
-  }
+}
+
 
   ngOnInit(): void {
     this.courseId = parseInt(this.route.snapshot.paramMap.get('id')?.toString() ?? '');

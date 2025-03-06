@@ -1,6 +1,6 @@
 import { CanActivateFn, Router } from '@angular/router';
 
 export const teacherGuard: CanActivateFn = (route, state) => {
-  return localStorage.getItem('role')=='teacher' || localStorage.getItem('role')=='admin';
+  return sessionStorage.getItem('role')=='teacher' || sessionStorage.getItem('role')=='admin';
 };
 
