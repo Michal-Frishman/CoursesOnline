@@ -1,103 +1,50 @@
-<!-- <form [formGroup]="signUpForm" (submit)="signUp()">
-    <div class="formGroup">
-        <label for="name">name: </label>
-        <input class="form-control" type="text" name="name" id="name" formControlName="name">
-    </div>
-
-    @if(this.signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched){
-    <small>name is required and at least 3 characters</small>
-    }
-    <div class="formGroup">
-        <label for="email">email: </label>
-        <input class="form-control" type="email" name="email" id="email" formControlName="email">
-    </div>
-    @if(this.signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched){
-    <small>email is required</small>
-    }
-    <div class="formGroup">
-        <label for="password">password: </label>
-        <input class="form-control" type="text" name="password" id="password" formControlName="password">
-    </div>
-    @if(this.signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched){
-    <small>password is required</small>
-    }
-    <div class="formGroup">
-
-        <label for="role">role: </label>
-        <br>
-        <input class="form-control" type="radio" name="role" id="admin" value="admin" formControlName="role">Admin
-        <input class="form-control" type="radio" name="role" id="student" value="student" formControlName="role">Student
-        <input class="form-control" type="radio" name="role" id="teacher" value="teacher" formControlName="role">Teacher
-    </div>
-
-    @if(this.signUpForm.get('role')?.invalid && signUpForm.get('role')?.touched){
-    <small>role is required</small>
-    }
-    <button [disabled]="this.signUpForm.invalid" type="submit">submit</button>
-</form>
-   -->
-<!-- <mat-form-field>
-    <mat-label>Input</mat-label>
-    <input matInput>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Select</mat-label>
-    <mat-select>
-      <mat-option value="one">First option</mat-option>
-      <mat-option value="two">Second option</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Textarea</mat-label>
-    <textarea matInput></textarea>
-  </mat-form-field> -->
-  <div class="form-container">
-
-<form [formGroup]="signUpForm" (submit)="signUp()">
-    <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" required>
-        @if(this.signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched){
-        <mat-error>
-            Name is required and must be at least 3 characters
-        </mat-error> }
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" required>
-        @if(this.signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched)
-        {
-        <mat-error>
-            Email is required
-        </mat-error>}
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" required>
-        @if(this.signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched)
-        {
-        <mat-error>
-            Password is required
-        </mat-error>}
-    </mat-form-field>
-
-    <div>
+<div class="form-container">
+    <form [formGroup]="signUpForm" (submit)="signUp()">
         <mat-form-field appearance="fill">
-            <mat-label>Role</mat-label>
-            <mat-select formControlName="role" required>
-                <mat-option value="admin">Admin</mat-option>
-              <mat-option value="student">Student</mat-option>
-              <mat-option value="teacher">Teacher</mat-option>
-            </mat-select>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" required>
+            @if(this.signUpForm.get('name')?.invalid && signUpForm.get('name')?.touched){
+            <mat-error>
+                Name is required and must be at least 3 characters
+            </mat-error> }
         </mat-form-field>
-        @if(this.signUpForm.get('role')?.invalid && signUpForm.get('role')?.touched){
 
-        <mat-error>
-            Role is required
-        </mat-error>}
-    </div>
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+            @if(this.signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched)
+            {
+            <mat-error>
+                Email is required
+            </mat-error>}
+        </mat-form-field>
 
-    <button mat-raised-button [disabled]="signUpForm.invalid" type="submit">Submit</button>
-</form>    </div>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" required>
+            @if(this.signUpForm.get('password')?.invalid && signUpForm.get('password')?.touched)
+            {
+            <mat-error>
+                Password is required
+            </mat-error>}
+        </mat-form-field>
+
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="role" required>
+                    <mat-option value="admin">Admin</mat-option>
+                    <mat-option value="student">Student</mat-option>
+                    <mat-option value="teacher">Teacher</mat-option>
+                </mat-select>
+            </mat-form-field>
+            @if(this.signUpForm.get('role')?.invalid && signUpForm.get('role')?.touched){
+
+            <mat-error>
+                Role is required
+            </mat-error>}
+        </div>
+
+        <button mat-raised-button [disabled]="signUpForm.invalid" type="submit">Sign</button>
+    </form>
+</div>
