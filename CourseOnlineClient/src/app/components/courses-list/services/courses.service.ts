@@ -52,9 +52,6 @@ export class CoursesService {
   }
 
   private getCourses() :void{
-    // this.http.get<Course[]>(this.apiUrl).subscribe(courses => {
-    //   this.coursesSubject.next(courses);
-    // });
     this.http.get<Course[]>(this.apiUrl).subscribe(
       (courses) => {
         this.coursesSubject.next(courses);

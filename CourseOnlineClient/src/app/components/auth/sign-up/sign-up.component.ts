@@ -38,7 +38,9 @@ export class SignUpComponent implements OnInit {
       console.log(this.signUpForm?.value);
       this.user = this.signUpForm.value;
       if (this.user)
-        this.authService.signUp(this.user).subscribe(res => {         
+        this.authService.signUp(this.user).subscribe(res => {    
+          sessionStorage.setItem("token",res.token );;
+          sessionStorage.setItem("userId",res.userId );;  
           sessionStorage.setItem("role",this.signUpForm?.value.role );;
           this.authService.isAuth = true;
           console.log("register successful");      

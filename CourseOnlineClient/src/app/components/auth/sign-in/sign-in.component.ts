@@ -41,20 +41,21 @@ export class SignInComponent implements OnInit {
         this.authService.signIn(this.user).subscribe(res => {
           this.authService.isAuth = true;
           console.log("login successful");
-          sessionStorage.setItem('userToken', res.token);
+
+          sessionStorage.setItem('token', res.token);
           sessionStorage.setItem('userId', res.userId);
-          sessionStorage.setItem('role', res.role); 
+          sessionStorage.setItem('role', res.role);
           this.formClose.emit();
           this.router.navigate(['/courses']);
         },
-        error => {
-          console.log("login failed");
-          alert("login failed");
-          this.signInForm.reset();
-        });
+          error => {
+            console.log("login failed");
+            alert("login failed");
+            this.signInForm.reset();
+          });
     }
   }
-  
+
   ngOnInit(): void {
     this.signInForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
