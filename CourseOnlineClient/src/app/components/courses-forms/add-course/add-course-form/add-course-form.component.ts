@@ -1,6 +1,5 @@
 
 import { Component, inject, OnInit } from '@angular/core';
-import { CoursesService } from '../../../../services/auth-service/courses.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { CoursesService } from '../../../../services/courses-service/courses.service';
 
 @Component({
   selector: 'app-add-course-form',

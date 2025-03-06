@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CoursesService } from '../../services/auth-service/courses.service';
 import { Course } from '../../models/course';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -8,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CourseDetailsComponent } from '../course-details/course-details/course-details.component';
+import { CoursesService } from '../../services/courses-service/courses.service';
 
 @Component({
   selector: 'app-courses-list',
@@ -43,11 +43,16 @@ export class CoursesListComponent implements OnInit {
   ngOnInit() {
     this.coursesService.courses$.subscribe(courses => {
       this.listCourses = courses;
-     });
+    });
+
+    if (this.userId) {
+      this.joinLeave.getCoursesById(parseInt(this.userId)).subscribe(courses => {
+        this.joinedCourses = courses;
+      });
+    }
     this.joinLeave.courses$.subscribe(courses => {
       this.joinedCourses = courses;
     });
-
   }
 
   deleteCourse(id: number) {
@@ -59,7 +64,7 @@ export class CoursesListComponent implements OnInit {
   }
 
   join(course: Course) {
-    this.joinLeave.joinCourse(parseInt(this.userId ?? ""), course.id)
+    this.joinLeave.joinCourse(parseInt(this.userId ?? ""), course.id);
   }
 
   leave(course: Course) {
