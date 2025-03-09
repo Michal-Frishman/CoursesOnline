@@ -38,9 +38,8 @@ export class SignInComponent implements OnInit {
       if (this.user) {
         this.authService.signIn(this.user).subscribe({
           next: (res) => {
-            this.authService.isAuth = true;
             sessionStorage.setItem('token', res.token);
-            sessionStorage.setItem('userId', res.userId);
+            sessionStorage.setItem('userId', res.userId);               
             sessionStorage.setItem('role', res.role);
             this.router.navigate(['/courses']);
           },

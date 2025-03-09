@@ -36,7 +36,6 @@ export class SignUpComponent implements OnInit {
             sessionStorage.setItem("token", res.token);
             sessionStorage.setItem("userId", res.userId);
             sessionStorage.setItem("role", this.signUpForm?.value.role);
-            this.authService.isAuth = true;
             this.router.navigate(['/courses']);
           },
           error: (error) => {

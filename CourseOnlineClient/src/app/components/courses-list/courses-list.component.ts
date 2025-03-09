@@ -44,7 +44,6 @@ export class CoursesListComponent implements OnInit {
     this.coursesService.courses$.subscribe(courses => {
       this.listCourses = courses;
     });
-
     if (this.userId) {
       this.joinLeave.getCoursesById(parseInt(this.userId)).subscribe(courses => {
         this.joinedCourses = courses;
