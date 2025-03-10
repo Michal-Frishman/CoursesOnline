@@ -34,10 +34,11 @@ export class AddCourseFormComponent implements OnInit {
         next: res => {
           this.courseForm.reset();
           this.routerNavigate.navigate(['courses']);
-        } });
+        }
+      });
     }
   }
-  
+
 
   ngOnInit(): void {
     this.userId = parseInt(this.route.snapshot.paramMap.get('id')?.toString() ?? '');

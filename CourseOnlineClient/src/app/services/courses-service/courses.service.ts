@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Course } from '../../models/course';
+import { log } from 'node:console';
 
 @Injectable({
   providedIn: 'root'

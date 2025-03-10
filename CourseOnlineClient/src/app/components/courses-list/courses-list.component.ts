@@ -28,17 +28,9 @@ export class CoursesListComponent implements OnInit {
   isTeacher = (sessionStorage.getItem("role") == "teacher" || sessionStorage.getItem("role") == "admin") ? true : false;
   userId = sessionStorage.getItem("userId");
   listCourses: Course[] = [];
-  showAddForm = false;
-  showUpdateForm = false;
-  courseForm!: FormGroup;
   joinedCourses: Course[] = [];
 
-  constructor(private joinLeave: JoinLeaveCoursesService, private coursesService: CoursesService, private fb: FormBuilder) {
-    this.courseForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required]
-    });
-  }
+  constructor(private joinLeave: JoinLeaveCoursesService, private coursesService: CoursesService) { }
 
   ngOnInit() {
     this.coursesService.courses$.subscribe(courses => {
